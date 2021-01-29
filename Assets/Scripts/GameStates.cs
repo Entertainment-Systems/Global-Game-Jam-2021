@@ -26,6 +26,7 @@ public class GameStates : MonoBehaviour
         set
         {
             _high = value < 0 ? 0 : value > 1 ? 1 : value;
+            Debug.Log("High: " + High);
         }
     }
 
@@ -48,7 +49,6 @@ public class GameStates : MonoBehaviour
         {
             timer = 0;
             High -= highDecay;
-            Debug.Log("High: " + High);
         }
     }
 
