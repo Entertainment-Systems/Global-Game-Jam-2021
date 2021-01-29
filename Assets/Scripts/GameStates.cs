@@ -37,7 +37,7 @@ public class GameStates : MonoBehaviour
 
     private void Start()
     {
-        High = 1;
+        High = 0;
         GameEvents.current.onPillPicked += onPillPicked;
     }
 

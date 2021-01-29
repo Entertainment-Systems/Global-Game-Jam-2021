@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class fovChanger : MonoBehaviour
 {
-    float high;
+    [SerializeField]
+    private float maxFov = 120;
 
     void Start()
     {
         GameEvents.current.onPillPicked += OnPillPickUp;
     }
+    private void Update()
+    {
+        Camera.main.fieldOfView = 75 + (GameStates.current.High * maxFov);
+
+    }
 
     private void OnPillPickUp(float high)
     {
-        high = GameStates.current.High;
-        Camera.main.fieldOfView = 120;
-        Debug.Log("High A F" + high);
+        //Debug.Log("High A F" + high);
     }
 }
