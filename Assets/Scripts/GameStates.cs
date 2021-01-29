@@ -37,19 +37,13 @@ public class GameStates : MonoBehaviour
 
     private void Start()
     {
-        High = 1;
+        High = 0;
         GameEvents.current.onPillPicked += onPillPicked;
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        //High should constantly decay
-        if (timer > decayDelay)
-        {
-            timer = 0;
-            High -= highDecay;
-        }
+        High -= Time.deltaTime * highDecay;
     }
 
     private void onPillPicked(float highValue)

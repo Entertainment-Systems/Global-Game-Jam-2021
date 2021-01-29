@@ -1,20 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class fovChanger : MonoBehaviour
 {
-    float high;
+    public float highMod = 45f;
+
+    private float baseFov;
 
     void Start()
     {
-        GameEvents.current.onPillPicked += OnPillPickUp;
+        baseFov = Camera.main.fieldOfView;
+        GameEvents.current.onPillPicked += PillPickIncreaseFOV;
     }
 
-    private void OnPillPickUp(float high)
+    private void Update()
     {
-        high = GameStates.current.High;
-        Camera.main.fieldOfView = 120;
-        Debug.Log("High A F" + high);
+        Camera.main.fieldOfView = baseFov + highMod * GameStates.current.High;
+    }
+
+    private void PillPickIncreaseFOV(float val)
+    {
+        //Start coroutine
+    }
+
+    private IEnumerator IncreaseFov()
+    {
+        yield return null;
     }
 }

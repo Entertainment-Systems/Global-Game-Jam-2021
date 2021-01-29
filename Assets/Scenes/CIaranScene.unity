@@ -1434,6 +1434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30157ea6955393446a6c7464a082a5e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highMod: 45
 --- !u!43 &1249897159
 Mesh:
   m_ObjectHideFlags: 0
@@ -2158,6 +2159,16 @@ PrefabInstance:
     - target: {fileID: 4448068258976056, guid: 2e62f5703e5f8d2488a5e1bc8433be41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114051214696948948, guid: 2e62f5703e5f8d2488a5e1bc8433be41,
+        type: 3}
+      propertyPath: advanced.FOVKickAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114051214696948948, guid: 2e62f5703e5f8d2488a5e1bc8433be41,
+        type: 3}
+      propertyPath: advanced.maxSlopeAngle
+      value: 55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e62f5703e5f8d2488a5e1bc8433be41, type: 3}
