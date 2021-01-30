@@ -101,9 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571007718b1fb9640a08e390ca08f82f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 3
   patrolSpeed: 0.5
-  chaseSpeed: 1
+  chaseSpeed: 3
   waypointsParent: {fileID: 0}
   pauseTime: 5
 --- !u!136 &4833630848027092067
