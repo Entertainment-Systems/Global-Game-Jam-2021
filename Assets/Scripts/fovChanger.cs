@@ -6,21 +6,18 @@ using UnityEngine;
 public class fovChanger : MonoBehaviour
 {
     public float highMod = 45f;
-    public float fovChangeSpeed = .01f;
 
     private float baseFov;
-    private float targetFov;
     private Camera _camera;
 
     void Start()
     {
         _camera = Camera.main;
         baseFov = Camera.main.fieldOfView;
-        targetFov = baseFov;
     }
 
     private void Update()
     {
-        _camera.fieldOfView = _camera.fieldOfView + highMod * GameStates.current.High;
+        _camera.fieldOfView = baseFov + highMod * GameStates.current.High;
     }
 }
