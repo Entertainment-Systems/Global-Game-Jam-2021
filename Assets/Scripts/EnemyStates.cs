@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class EnemyStates : MonoBehaviour
 {
 
-    [Header("State")]
+    [Header("States")]
     public enemyState state;
-    public enum enemyState { patrol, chase, wait }
+    public enum enemyState { patrol, chase, investigate, wait }
     [SerializeField] float patrolSpeed = 0.4f;
     [SerializeField] float chaseSpeed = 0.8f;
 
@@ -57,7 +57,7 @@ public class EnemyStates : MonoBehaviour
         switch (state)
         {
             case enemyState.patrol:
-                if (Vector3.Distance(transform.position, target.position) < 1)
+                if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance)
                     StartCoroutine(NextWaypoint());
 
                 agent.SetDestination(target.position);
@@ -65,14 +65,38 @@ public class EnemyStates : MonoBehaviour
                 break;
 
             case enemyState.chase:
-                agent.SetDestination(Player.transform.position);
-                agent.speed = chaseSpeed;
+                setTarget(Player.transform, chaseSpeed);
                 break;
+
+            case enemyState.investigate:
+                print(Vector3.Distance(transform.position, target.position));
+                if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance)
+                    StartCoroutine(NextWaypoint());
+                break;
+
 
             case enemyState.wait:
                 agent.speed = 0;
                 break;
         }
+    }
+
+    void setTarget(Transform t, float speed)
+    {
+        target = t;
+        agent.SetDestination(target.position);
+        agent.speed = speed;
+    }
+
+    public void testInvestigate()
+    {
+        investigate(Player.transform);
+    }
+
+    public void investigate(Transform t)
+    {
+        setTarget(t, chaseSpeed);
+        state = enemyState.investigate;
     }
 
     IEnumerator NextWaypoint()
