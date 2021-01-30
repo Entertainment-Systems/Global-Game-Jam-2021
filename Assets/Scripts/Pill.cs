@@ -11,7 +11,7 @@ public class Pill : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             //Add pills value to the current high
-            GameEvents.current.OnOnPillPicked(pillValue);
+            GameEvents.current.OnPillPicked(pillValue);
             Destroy(gameObject);
         }
     }

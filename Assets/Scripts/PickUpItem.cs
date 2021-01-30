@@ -32,7 +32,7 @@ public class PickUpItem : MonoBehaviour
             {
                 PickUpIndicator.SetActive(true);
                 PickUpIndicator.transform.position = hit.point;
-                Debug.Log("I see");
+                // Debug.Log("I see");
          
                 if (Input.GetKey(pickUpKey))
                 {

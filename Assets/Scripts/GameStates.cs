@@ -42,7 +42,7 @@ public class GameStates : MonoBehaviour
     private void Start()
     {
         High = 0;
-        GameEvents.current.onPillPicked += onPillPicked;
+        GameEvents.current.PillPicked += PillPicked;
     }
 
     private void Update()
@@ -62,7 +62,7 @@ public class GameStates : MonoBehaviour
         }
     }
 
-    private void onPillPicked(float highValue)
+    private void PillPicked(float highValue)
     {
         TargetHigh += highValue;
     }

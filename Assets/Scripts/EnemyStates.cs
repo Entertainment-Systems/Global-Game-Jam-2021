@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,6 +29,8 @@ public class EnemyStates : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameEvents.current.NoisePlayed += OnNoisePlayed;
+        
         Player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -48,6 +51,12 @@ public class EnemyStates : MonoBehaviour
             StartCoroutine(changeAnimation("Walk"));
         }
         else print("Error: no waypoints set for AI");
+    }
+
+    private void OnNoisePlayed(List<int> list, Vector3 pos)
+    {
+        if(list.Contains(gameObject.GetInstanceID()))
+            investigate(pos);
     }
 
     // Update is called once per frame
@@ -97,6 +106,12 @@ public class EnemyStates : MonoBehaviour
     {
         setTarget(t, chaseSpeed);
         state = enemyState.investigate;
+    }
+    
+    //Need an investigate at position, since transform will always point to the object even when it moved after making noise
+    public void investigate(Vector3 pos)
+    {
+        Debug.Log(name + " alerted of noise at " + pos);
     }
 
     IEnumerator NextWaypoint()
