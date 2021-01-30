@@ -10,27 +10,28 @@ public class GameStates : MonoBehaviour
     public static GameStates current;
 
     //How much the high decays?
-    [SerializeField] private float highDecay = .01f;
+    [SerializeField] private float changeDecayStep = .01f;
     //How often the high decays
-    [SerializeField] private float decayDelay = 1f;
-
-    private float timer = 0f;
+    [SerializeField] private float changeSpeed = 20f;    
 
     //Clamp high value to [0, 1]
     private float _high;
     public float High
     {
-        get
-        {
-            return _high;
-        }
-        
+        get => _high;
         set
         {
-            _high = value < 0 ? 0 : value > 1 ? 1 : value;
+            _high = value < 0 ? 0 : value > _targetHigh ? _targetHigh : value;
             if(debug)
-                Debug.Log("High: " + High);
+                Debug.Log("Target high: " + _targetHigh + ", " + "Current high: " + _high);
         }
+    }
+    
+    private float _targetHigh;
+    public float TargetHigh
+    {
+        get => _targetHigh;
+        set => _targetHigh = value < 0 ? 0 : value > 1 ? 1 : value;
     }
 
     private void Awake()
@@ -45,12 +46,24 @@ public class GameStates : MonoBehaviour
     }
 
     private void Update()
-    {
-        High -= Time.deltaTime * highDecay;
+    {    
+        //Target decays decay val per second
+        float decay = Time.deltaTime * changeDecayStep;
+        TargetHigh -= decay;
+        
+        //If the difference between target and current hight is bigger than tolerance, update current high
+        if (TargetHigh - High > .01f)
+        {
+            High += changeDecayStep * changeSpeed * Time.deltaTime;
+        }
+        else
+        {            
+            High -= decay;
+        }
     }
 
     private void onPillPicked(float highValue)
     {
-        High += highValue;
+        TargetHigh += highValue;
     }
 }
