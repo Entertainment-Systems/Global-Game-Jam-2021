@@ -71,6 +71,7 @@ public class FirstPersonAIO : MonoBehaviour {
 
     //CUSTOM STUFF
     private bool _playerAlive = true;
+    public float crouchDepth = 2.5f;
 
     #region Variables
 
@@ -535,17 +536,26 @@ public class FirstPersonAIO : MonoBehaviour {
         if(_crouchModifiers.useCrouch) {
             
             if(isCrouching) {
-                    capsule.height = Mathf.MoveTowards(capsule.height, _crouchModifiers.colliderHeight/1.5f, 5*Time.deltaTime);
+                capsule.height = Mathf.MoveTowards(capsule.height, _crouchModifiers.colliderHeight/crouchDepth, 5*Time.deltaTime);
                         walkSpeedInternal = walkSpeed*_crouchModifiers.crouchWalkSpeedMultiplier;
                         jumpPowerInternal = jumpPower* _crouchModifiers.crouchJumpPowerMultiplier;
 
                 } else {
-                capsule.height = Mathf.MoveTowards(capsule.height, _crouchModifiers.colliderHeight, 5*Time.deltaTime);    
-                walkSpeedInternal = walkSpeed;
-                sprintSpeedInternal = sprintSpeed;
-                jumpPowerInternal = jumpPower;
+                Debug.DrawRay(transform.position, Vector3.up * capsule.height, Color.yellow);
+                RaycastHit hit;
+                //Check for ceiling height
+                if(!Physics.Raycast(transform.position, Vector3.up * capsule.height, out hit, capsule.height))
+                {
+                    capsule.height = Mathf.MoveTowards(capsule.height, _crouchModifiers.colliderHeight,
+                        5 * Time.deltaTime);
+                    walkSpeedInternal = walkSpeed;
+                    sprintSpeedInternal = sprintSpeed;
+                    jumpPowerInternal = jumpPower;
+                }
             }
         }
+        
+        
 
 
 
