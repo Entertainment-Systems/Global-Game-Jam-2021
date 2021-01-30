@@ -9,10 +9,15 @@ public class GameStates : MonoBehaviour
     
     public static GameStates current;
 
+    [SerializeField] private GameObject[] phaseGroups;
+    private int groupIndex;
+    
     //How much the high decays?
     [SerializeField] private float changeDecayStep = .01f;
     //How often the high decays
-    [SerializeField] private float changeSpeed = 20f;    
+    [SerializeField] private float changeSpeed = 20f;
+
+    public int PlayerLives;
 
     //Clamp high value to [0, 1]
     private float _high;
@@ -42,8 +47,31 @@ public class GameStates : MonoBehaviour
     private void Start()
     {
         High = 0;
-        GameEvents.current.PillPicked += PillPicked;
+        PlayerLives = 3;
+        groupIndex = 0;
+        GameEvents.current.PillPicked += OnPillPicked;
+        GameEvents.current.PlayerAttacked += OnPlayerAttacked;
+
+        foreach (var group in phaseGroups)
+        {
+            group.gameObject.SetActive(false);
+        }
+            
     }
+
+    private void OnPlayerAttacked(int id)
+    {
+        if (--PlayerLives > 0)
+        {
+            GameEvents.current.OnPlayerLostLife(PlayerLives);
+            phaseGroups[groupIndex++].gameObject.SetActive(true);
+        }
+        else
+        {
+            GameEvents.current.OnPlayerKilled(id);
+        }
+    }
+
 
     private void Update()
     {    
@@ -62,7 +90,7 @@ public class GameStates : MonoBehaviour
         }
     }
 
-    private void PillPicked(float highValue)
+    private void OnPillPicked(float highValue)
     {
         TargetHigh += highValue;
     }

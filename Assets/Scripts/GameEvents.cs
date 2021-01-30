@@ -18,6 +18,8 @@ public class GameEvents : MonoBehaviour
     public event Action<float> PillPicked;
     public event Action<float, Vector3> NoisePlayed;
     public event Action<int> PlayerKilled;
+    public event Action<int> PlayerLostLife;
+    public event Action<int> PlayerAttacked;
 
     //CALLS
     public void OnDoorwayTriggerEnter(int id)
@@ -45,5 +47,15 @@ public class GameEvents : MonoBehaviour
     public void OnPlayerKilled(int id)
     {
         PlayerKilled?.Invoke(id);
+    }
+
+    public void OnPlayerLostLife(int livesLeft)
+    {
+        PlayerLostLife?.Invoke(livesLeft);
+    }
+
+    public void OnPlayerAttacked(int obj)
+    {
+        PlayerAttacked?.Invoke(obj);
     }
 }

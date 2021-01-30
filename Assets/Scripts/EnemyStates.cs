@@ -185,7 +185,7 @@ public class EnemyStates : MonoBehaviour
         
         if (other.gameObject.CompareTag("Player"))
         {
-            GameEvents.current.OnPlayerKilled(gameObject.GetInstanceID());
+            GameEvents.current.OnPlayerAttacked(gameObject.GetInstanceID());
         }
     }
 }
