@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 3
-  patrolSpeed: 0.4
-  chaseSpeed: 0.8
+  patrolSpeed: 0.5
+  chaseSpeed: 1
   waypointsParent: {fileID: 0}
   pauseTime: 5
 --- !u!136 &4833630848027092067

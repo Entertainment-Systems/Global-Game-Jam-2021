@@ -7,11 +7,31 @@ using UnityEngine.AI;
 public class EnemyStates : MonoBehaviour
 {
 
-    [Header("States")]
-    public enemyState state;
+    [Header("States")] private enemyState _state;
+    public enemyState state
+    {
+        get => _state;
+        set
+        {
+            _state = value;
+            switch (value)
+            {
+                case enemyState.chase:
+                    agent.speed = chaseSpeed;
+                    break;
+                case enemyState.wait:
+                    agent.speed = 0;
+                    break;
+                default:
+                    agent.speed = patrolSpeed;
+                    break;
+            }            
+        }
+    }
+
     public enum enemyState { patrol, chase, investigate, wait }
-    [SerializeField] float patrolSpeed = 0.4f;
-    [SerializeField] float chaseSpeed = 0.8f;
+    [SerializeField] float patrolSpeed = 1f;    
+    [SerializeField] private float chaseSpeed = 3f;
 
     [Header("Targets")]
     [SerializeField] GameObject waypointsParent;
@@ -25,7 +45,7 @@ public class EnemyStates : MonoBehaviour
 
     Animator anim;
     NavMeshAgent agent;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +66,7 @@ public class EnemyStates : MonoBehaviour
             target = waypointTransforms[0];
             currentTargetIndex = 0;
             agent.SetDestination(target.position);
-            StartCoroutine(changeAnimation("Walk"));
+            // StartCoroutine(changeAnimation("Walk"));
         }
         else print("Error: no waypoints set for AI");
     }
@@ -59,10 +79,7 @@ public class EnemyStates : MonoBehaviour
         {
             case enemyState.patrol:
                 if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance)
-                    StartCoroutine(NextWaypoint());
-
-                agent.SetDestination(target.position);
-                agent.speed = patrolSpeed;
+                    StartCoroutine(NextWaypoint());                
                 break;
 
             case enemyState.chase:
@@ -70,7 +87,9 @@ public class EnemyStates : MonoBehaviour
                 break;
 
             case enemyState.investigate:
-                print(Vector3.Distance(transform.position, target.position));
+                // print(Vector3.Distance(transform.position, target.position));
+                agent.speed = patrolSpeed;
+
                 if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance)
                     StartCoroutine(NextWaypoint());
                 break;
@@ -80,6 +99,8 @@ public class EnemyStates : MonoBehaviour
                 agent.speed = 0;
                 break;
         }
+        Debug.Log(agent.desiredVelocity.magnitude);
+        anim.SetFloat("Speed", agent.desiredVelocity.magnitude, .2f, Time.deltaTime);
     }
 
     void setTarget(Transform t, float speed)
@@ -87,6 +108,12 @@ public class EnemyStates : MonoBehaviour
         target = t;
         agent.SetDestination(target.position);
         agent.speed = speed;
+    }
+    
+    public void setTarget(Transform t)
+    {
+        target = t;
+        agent.SetDestination(target.position);
     }
 
     public void testInvestigate()
@@ -103,7 +130,8 @@ public class EnemyStates : MonoBehaviour
     //Need an investigate at position, since transform will always point to the object even when it moved after making noise
     public void investigate(Vector3 pos)
     {
-        Debug.Log(name + " alerted of noise at " + pos);
+        state = enemyState.investigate;
+        agent.SetDestination(pos);
     }
 
     IEnumerator NextWaypoint()
@@ -111,7 +139,7 @@ public class EnemyStates : MonoBehaviour
         state = enemyState.wait;
         agent.isStopped = true;
 
-        StartCoroutine(changeAnimation("Idle"));
+        // StartCoroutine(changeAnimation("Idle"));
 
         yield return new WaitForSecondsRealtime(pauseTime);
 
@@ -126,8 +154,8 @@ public class EnemyStates : MonoBehaviour
             target = waypointTransforms[currentTargetIndex];
         }
 
-        StartCoroutine(changeAnimation("Walk"));
-
+        agent.SetDestination(target.position);
+        agent.speed = patrolSpeed;
         state = enemyState.patrol;
     }
 

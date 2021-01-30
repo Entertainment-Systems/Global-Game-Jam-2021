@@ -11,10 +11,12 @@ public class AiVision : MonoBehaviour
     private Vector3 _lastSightingPos;
     private Transform _player;
     private Transform eyes;
+    private EnemyStates aiStates;
     
     // Start is called before the first frame update
     void Start()
     {
+        aiStates = GetComponent<EnemyStates>();
         _lastSightingPos = transform.position;
         //Set the eyes to always be first cause lazy
         eyes = transform.GetChild(0);
@@ -39,13 +41,15 @@ public class AiVision : MonoBehaviour
             
             if (_lastSightingPos == _player.position)
             {
-                //TODO: If last sighting is same as player position, chase
-                Debug.Log("Seeing player at " + _lastSightingPos);
+                aiStates.setTarget(_player);
+                aiStates.state = EnemyStates.enemyState.chase;
             }
             else
             {
-                //TODO: Investigate if is in chase state and lost player
-                Debug.Log("Lost player at " + _lastSightingPos);
+                if(aiStates.state == EnemyStates.enemyState.chase)
+                {
+                    aiStates.investigate(_lastSightingPos);
+                }
             }
         }
     }
