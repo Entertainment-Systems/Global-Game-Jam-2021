@@ -15,8 +15,8 @@ public class DoorController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        GameEvents.current.onDoorwayTriggerEnter += OnDoorwayOpen;
-        GameEvents.current.onDoorwayTriggerExit += OnDoorwayClose;
+        GameEvents.current.DoorwayTriggerEnter += OnDoorwayOpen;
+        GameEvents.current.DoorwayTriggerExit += OnDoorwayClose;
     }
 
     private void OnDoorwayClose(int id)
