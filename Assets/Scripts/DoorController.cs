@@ -10,17 +10,17 @@ public class DoorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameEvents.current.onDoorwayTriggerEnter += OnDoorwayOpen;
-        GameEvents.current.onDoorwayTriggerExit += OnDoorwayClose;
+        GameEvents.current.DoorwayTriggerEnter += DoorwayOpen;
+        GameEvents.current.DoorwayTriggerExit += DoorwayClose;
     }
 
-    private void OnDoorwayClose(int id)
+    private void DoorwayClose(int id)
     {
         if (id == this.id)
             transform.Translate(Vector3.up * -10);
     }
 
-    private void OnDoorwayOpen(int id)
+    private void DoorwayOpen(int id)
     {
         if (id == this.id)
             transform.Translate(Vector3.up * 10);
