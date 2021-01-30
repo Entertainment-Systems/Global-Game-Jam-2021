@@ -21,13 +21,6 @@ public class fovChanger : MonoBehaviour
 
     private void Update()
     {
-        float high = GameStates.current.High;
-        targetFov = baseFov + highMod * high;
-        
-        if (_camera.fieldOfView - targetFov < 0)
-        {
-            Debug.Log(targetFov + " , " + _camera.fieldOfView);
-            _camera.fieldOfView = _camera.fieldOfView + highMod * high * fovChangeSpeed * Time.deltaTime;
-        }
+        _camera.fieldOfView = _camera.fieldOfView + highMod * GameStates.current.High;
     }
 }
