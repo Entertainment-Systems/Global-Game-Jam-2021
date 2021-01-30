@@ -5,7 +5,7 @@ using UnityEngine;
 public class fovChanger : MonoBehaviour
 {
     [SerializeField]
-    private float maxFov = 120;
+    private float maxFov = 30;
 
     void Start()
     {
@@ -13,7 +13,7 @@ public class fovChanger : MonoBehaviour
     }
     private void Update()
     {
-        Camera.main.fieldOfView = 75 + (GameStates.current.High * maxFov);
+        //Camera.main.fieldOfView = 75 + (GameStates.current.High * maxFov);
 
     }
 
