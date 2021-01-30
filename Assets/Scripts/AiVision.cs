@@ -27,28 +27,31 @@ public class AiVision : MonoBehaviour
     void Update()
     {
         //Set the player height somehow?
-        Vector3 target = _player.position + Vector3.up * _player.localScale.y;        
+        Vector3 target = _player.position + Vector3.up * _player.localScale.y;   
 
-        float angle = Vector3.Angle(transform.forward, target - eyes.position);
-        if (angle < visionCone / 2f)
+        if(aiStates.state != EnemyStates.enemyState.eating)
         {
-            RaycastHit hit;
-            if (!Physics.Raycast(eyes.position, target - eyes.position, out hit, visionRange, collisionMask))
+            float angle = Vector3.Angle(transform.forward, target - eyes.position);
+            if (angle < visionCone / 2f)
             {
-                Debug.DrawRay(eyes.position, target - eyes.position, Color.red);
-                _lastSightingPos = _player.position;
-            }
-            
-            if (_lastSightingPos == _player.position)
-            {
-                aiStates.setTarget(_player);
-                aiStates.state = EnemyStates.enemyState.chase;
-            }
-            else
-            {
-                if(aiStates.state == EnemyStates.enemyState.chase)
+                RaycastHit hit;
+                if (!Physics.Raycast(eyes.position, target - eyes.position, out hit, visionRange, collisionMask))
                 {
-                    aiStates.investigate(_lastSightingPos);
+                    Debug.DrawRay(eyes.position, target - eyes.position, Color.red);
+                    _lastSightingPos = _player.position;
+                }
+
+                if (_lastSightingPos == _player.position)
+                {
+                    aiStates.setTarget(_player);
+                    aiStates.state = EnemyStates.enemyState.chase;
+                }
+                else
+                {
+                    if (aiStates.state == EnemyStates.enemyState.chase)
+                    {
+                        aiStates.investigate(_lastSightingPos);
+                    }
                 }
             }
         }

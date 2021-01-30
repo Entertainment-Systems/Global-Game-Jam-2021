@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -22,6 +23,9 @@ public class EnemyStates : MonoBehaviour
                 case enemyState.wait:
                     agent.speed = 0;
                     break;
+                case enemyState.eating:
+                    agent.speed = 0;
+                    break;
                 default:
                     agent.speed = patrolSpeed;
                     break;
@@ -29,7 +33,7 @@ public class EnemyStates : MonoBehaviour
         }
     }
 
-    public enum enemyState { patrol, chase, investigate, wait }
+    public enum enemyState { patrol, chase, investigate, wait, eating }
     [SerializeField] float patrolSpeed = 1f;    
     [SerializeField] private float chaseSpeed = 3f;
 
@@ -53,6 +57,8 @@ public class EnemyStates : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
 
+        GameEvents.current.PlayerKilled += OnPlayerKilled;
+
         int waypointCount = waypointsParent.transform.childCount;
         print("waypoints: " + waypointCount);
 
@@ -69,6 +75,14 @@ public class EnemyStates : MonoBehaviour
             // StartCoroutine(changeAnimation("Walk"));
         }
         else print("Error: no waypoints set for AI");
+    }
+
+    private void OnPlayerKilled(int id)
+    {
+        if(gameObject.GetInstanceID() == id)
+        {
+            anim.SetBool("Eat", true);
+        }
     }
 
     // Update is called once per frame
@@ -99,7 +113,6 @@ public class EnemyStates : MonoBehaviour
                 agent.speed = 0;
                 break;
         }
-        Debug.Log(agent.desiredVelocity.magnitude);
         anim.SetFloat("Speed", agent.desiredVelocity.magnitude, .2f, Time.deltaTime);
     }
 
@@ -164,5 +177,15 @@ public class EnemyStates : MonoBehaviour
         anim.SetBool(animationName, true);
         yield return new WaitForEndOfFrame();
         anim.SetBool(animationName, false);
+    }
+
+    //Dirty! TODO: Move to its own script?
+    private void OnCollisionEnter(Collision other)
+    {
+        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameEvents.current.OnPlayerKilled(gameObject.GetInstanceID());
+        }
     }
 }
