@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameStates : MonoBehaviour
 {
+    public bool debug = false;
+    
     public static GameStates current;
 
     //How much the high decays?
@@ -26,7 +28,8 @@ public class GameStates : MonoBehaviour
         set
         {
             _high = value < 0 ? 0 : value > 1 ? 1 : value;
-            Debug.Log("High: " + High);
+            if(debug)
+                Debug.Log("High: " + High);
         }
     }
 
@@ -37,19 +40,13 @@ public class GameStates : MonoBehaviour
 
     private void Start()
     {
-        High = 1;
+        High = 0;
         GameEvents.current.onPillPicked += onPillPicked;
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        //High should constantly decay
-        if (timer > decayDelay)
-        {
-            timer = 0;
-            High -= highDecay;
-        }
+        High -= Time.deltaTime * highDecay;
     }
 
     private void onPillPicked(float highValue)
