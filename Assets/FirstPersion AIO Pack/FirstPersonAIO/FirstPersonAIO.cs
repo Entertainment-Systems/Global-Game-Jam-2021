@@ -343,7 +343,12 @@ public class FirstPersonAIO : MonoBehaviour {
 
     private void OnPlayerKilled(int id)
     {
-        originalLocalPosition = originalLocalPosition + Vector3.down * 1.2f;
+        // originalLocalPosition = originalLocalPosition + Vector3.down * 1.2f;
+        // capsule.height = Mathf.MoveTowards(capsule.height, .1f, Time.deltaTime);
+        capsule.height = 0;
+        capsule.radius = 0;
+        gameObject.layer = 12;
+        fps_Rigidbody.velocity = Vector3.zero;
         _playerAlive = false;
     }
 
