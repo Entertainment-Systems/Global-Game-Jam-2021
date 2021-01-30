@@ -13,27 +13,32 @@ public class GameEvents : MonoBehaviour
     }
 
     //EVENTS
-    public event Action<int> onDoorwayTriggerEnter;
-    public event Action<int> onDoorwayTriggerExit;
-    public event Action<float> onPillPicked;
+    public event Action<int> DoorwayTriggerEnter;
+    public event Action<int> DoorwayTriggerExit;
+    public event Action<float> PillPicked;
+    public event Action<float, Vector3> NoisePlayed;
 
     //CALLS
-    public void DoorwayTriggerEnter(int id)
+    public void OnDoorwayTriggerEnter(int id)
     {
-        if (onDoorwayTriggerEnter != null)
-            onDoorwayTriggerEnter(id);
+        if (DoorwayTriggerEnter != null)
+            DoorwayTriggerEnter(id);
     }
     
-    public void DoorwayTriggerExit(int id)
+    public void OnDoorwayTriggerExit(int id)
     {
-        if (onDoorwayTriggerExit != null)
-            onDoorwayTriggerExit(id);
+        if (DoorwayTriggerExit != null)
+            DoorwayTriggerExit(id);
     }
 
 
-    public void OnOnPillPicked(float val)
+    public void OnPillPicked(float val)
     {
-        if (onPillPicked != null) 
-            onPillPicked(val);
+        PillPicked?.Invoke(val);
+    }
+
+    public void OnNoisePlayed(float range, Vector3 position)
+    {
+        NoisePlayed?.Invoke(range, position);
     }
 }

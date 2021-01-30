@@ -9,12 +9,12 @@ public class TriggerArea : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
-            GameEvents.current.DoorwayTriggerEnter(id);
+            GameEvents.current.OnDoorwayTriggerEnter(id);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Player"))
-            GameEvents.current.DoorwayTriggerExit(id);
+            GameEvents.current.OnDoorwayTriggerExit(id);
     }
 }
