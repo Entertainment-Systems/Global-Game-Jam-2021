@@ -53,12 +53,13 @@
 /// 
 /// Made changes that you think should come "Out of the box"? E-mail the modified Script with A new entry on the top of the Change log to: modifiedassets@aedangraves.info
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-
+using Random = UnityEngine.Random;
 #if UNITY_EDITOR
     using UnityEditor;
     using System.Net;
@@ -68,6 +69,8 @@ using System.Collections.Generic;
 
 public class FirstPersonAIO : MonoBehaviour {
 
+    //CUSTOM STUFF
+    private bool _playerAlive = true;
 
     #region Variables
 
@@ -270,7 +273,10 @@ public class FirstPersonAIO : MonoBehaviour {
 
     }
 
-    private void Start(){
+    private void Start()
+    {
+        GameEvents.current.PlayerKilled += OnPlayerKilled;
+        
         #region Look Settings - Start
 
         if(autoCrosshair || drawStaminaMeter){
@@ -334,8 +340,14 @@ public class FirstPersonAIO : MonoBehaviour {
         #endregion
     }
 
-    private void Update(){
+    private void OnPlayerKilled(int id)
+    {
+        originalLocalPosition = originalLocalPosition + Vector3.down * 1.2f;
+        _playerAlive = false;
+    }
 
+    private void Update()
+    {
         #region Look Settings - Update
 
             if(enableCameraMovement && !controllerPauseState){
@@ -362,6 +374,9 @@ public class FirstPersonAIO : MonoBehaviour {
     
         #endregion
 
+        if (!_playerAlive)
+            return;
+
         #region Input Settings - Update
         if(canHoldJump ? (canJump && Input.GetButton("Jump")) : (Input.GetButtonDown("Jump") && canJump) ){
             jumpInput = true;
@@ -386,12 +401,14 @@ public class FirstPersonAIO : MonoBehaviour {
 
     }
 
-    private void FixedUpdate(){
-
+    private void FixedUpdate()
+    {        
         #region Look Settings - FixedUpdate
 
         #endregion
-
+        
+        if (_playerAlive)
+        {
         #region Movement Settings - FixedUpdate
         
         if(useStamina){
@@ -504,16 +521,16 @@ public class FirstPersonAIO : MonoBehaviour {
         fps_Rigidbody.AddForce(Physics.gravity * (advanced.gravityMultiplier - 1));
         
         
-        // if(advanced.FOVKickAmount>0){
-        //     if(isSprinting && !isCrouching && playerCamera.fieldOfView != (baseCamFOV+(advanced.FOVKickAmount*2)-0.01f)){
-        //         if(Mathf.Abs(fps_Rigidbody.velocity.x)> 0.5f || Mathf.Abs(fps_Rigidbody.velocity.z)> 0.5f){
-        //             playerCamera.fieldOfView = Mathf.SmoothDamp(playerCamera.fieldOfView,baseCamFOV+(advanced.FOVKickAmount*2),ref advanced.fovRef,advanced.changeTime);
-        //             }
-        //         
-        //     }
-        //     else if(playerCamera.fieldOfView != baseCamFOV){ playerCamera.fieldOfView = Mathf.SmoothDamp(playerCamera.fieldOfView,baseCamFOV,ref advanced.fovRef,advanced.changeTime*0.5f);}
-        //     
-        // }
+        if(advanced.FOVKickAmount>0){
+            if(isSprinting && !isCrouching && playerCamera.fieldOfView != (baseCamFOV+(advanced.FOVKickAmount*2)-0.01f)){
+                if(Mathf.Abs(fps_Rigidbody.velocity.x)> 0.5f || Mathf.Abs(fps_Rigidbody.velocity.z)> 0.5f){
+                    playerCamera.fieldOfView = Mathf.SmoothDamp(playerCamera.fieldOfView,baseCamFOV+(advanced.FOVKickAmount*2),ref advanced.fovRef,advanced.changeTime);
+                    }
+                
+            }
+            else if(playerCamera.fieldOfView != baseCamFOV){ playerCamera.fieldOfView = Mathf.SmoothDamp(playerCamera.fieldOfView,baseCamFOV,ref advanced.fovRef,advanced.changeTime*0.5f);}
+            
+        }
 
         if(_crouchModifiers.useCrouch) {
             
@@ -534,6 +551,7 @@ public class FirstPersonAIO : MonoBehaviour {
 
 
         #endregion
+        }
 
         #region Headbobbing Settings - FixedUpdate
         float yPos = 0;
