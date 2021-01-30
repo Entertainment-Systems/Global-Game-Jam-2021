@@ -3515,13 +3515,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleSoundDampening: 2
-  clips: []
-  enemiesMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  soundObstacles:
-    serializedVersion: 2
-    m_Bits: 2048
+  clips:
+  - clip: {fileID: 0}
+    audibleRange: 0
+  - clip: {fileID: 0}
+    audibleRange: 0
 --- !u!82 &1019319028
 AudioSource:
   m_ObjectHideFlags: 0

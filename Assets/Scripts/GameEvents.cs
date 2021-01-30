@@ -16,7 +16,7 @@ public class GameEvents : MonoBehaviour
     public event Action<int> DoorwayTriggerEnter;
     public event Action<int> DoorwayTriggerExit;
     public event Action<float> PillPicked;
-    public event Action<List<int>, Vector3> NoisePlayed;
+    public event Action<float, Vector3> NoisePlayed;
 
     //CALLS
     public void OnDoorwayTriggerEnter(int id)
@@ -37,8 +37,8 @@ public class GameEvents : MonoBehaviour
         PillPicked?.Invoke(val);
     }
 
-    public void OnNoisePlayed(List<int> list, Vector3 position)
+    public void OnNoisePlayed(float range, Vector3 position)
     {
-        NoisePlayed?.Invoke(list, position);
+        NoisePlayed?.Invoke(range, position);
     }
 }

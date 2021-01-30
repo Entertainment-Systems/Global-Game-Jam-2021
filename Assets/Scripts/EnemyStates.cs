@@ -29,8 +29,6 @@ public class EnemyStates : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameEvents.current.NoisePlayed += OnNoisePlayed;
-        
         Player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -51,12 +49,6 @@ public class EnemyStates : MonoBehaviour
             StartCoroutine(changeAnimation("Walk"));
         }
         else print("Error: no waypoints set for AI");
-    }
-
-    private void OnNoisePlayed(List<int> list, Vector3 pos)
-    {
-        if(list.Contains(gameObject.GetInstanceID()))
-            investigate(pos);
     }
 
     // Update is called once per frame

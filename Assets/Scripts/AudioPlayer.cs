@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Random = System.Random;
 
 [RequireComponent(typeof(AudioSource))]
 public class AudioPlayer : MonoBehaviour
@@ -11,59 +12,49 @@ public class AudioPlayer : MonoBehaviour
 
     [SerializeField] private float obstacleSoundDampening = 2f;
 
-    public AudioClip[] clips;
-    public LayerMask enemiesMask;
-    public LayerMask soundObstacles;
-    
+    [Serializable]
+    public struct AudioWithVolume
+    {
+        public AudioClip clip;
+        public float audibleRange;
+    }
+
+    public AudioWithVolume[] clips;
+
     // Start is called before the first frame update
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public void Play(int i)
     {
         if(clips.Length > 0)
         {
-            _audioSource.clip = clips[i];
+            _audioSource.clip = clips[i].clip;
             _audioSource.Play();
-            NotifyAI();
+            GameEvents.current.OnNoisePlayed(clips[i].audibleRange, transform.position);
         }
     }
 
-    private void NotifyAI()
+    public void Play()
     {
-        //TODO: Get distance based on volume somehow
-        float radius = 20f;
-        Collider[] inRange = Physics.OverlapSphere(transform.position, radius, enemiesMask);
-        List<int> alerted = new List<int>();
-        
-
-        foreach (var collider in inRange)
+        if(clips.Length > 0)
         {
-            float distance = Vector3.Distance(collider.transform.position, transform.position);
-            RaycastHit[] hits;
-
-            hits = Physics.RaycastAll(transform.position, collider.transform.position - transform.position, distance, soundObstacles);
-            Debug.DrawRay(transform.position,  collider.transform.position - transform.position, Color.green, 5f);
-            if (distance + hits.Length * obstacleSoundDampening < radius)
-            {
-                alerted.Add(collider.gameObject.GetInstanceID());
-            }
+            Random rand = new Random();
+            int clip = rand.Next(clips.Length);
+            
+            _audioSource.clip = clips[clip].clip;
+            _audioSource.Play();
+            GameEvents.current.OnNoisePlayed(clips[clip].audibleRange, transform.position);
         }
-        
-        //Set noise event with list of alerted entities
-        GameEvents.current.OnNoisePlayed(alerted, transform.position);
     }
+
+    
 
     private void OnCollisionEnter(Collision other)
     {
-        NotifyAI();
+        GameEvents.current.OnNoisePlayed(20f, transform.position);
     }
 }
