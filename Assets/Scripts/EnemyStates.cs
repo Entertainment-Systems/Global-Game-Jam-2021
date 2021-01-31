@@ -14,6 +14,13 @@ public class EnemyStates : MonoBehaviour
         get => _state;
         set
         {
+            //Check if coroutine empty or running
+            if(pauseCoroutine != null)
+            {
+                StopCoroutine(pauseCoroutine);
+                pauseCoroutine = null;
+            }
+            // Debug.Log(name + " going to " + value);
             _state = value;
             switch (value)
             {
@@ -58,6 +65,9 @@ public class EnemyStates : MonoBehaviour
     Animator anim;
     NavMeshAgent agent;
     private AudioPlayer _audioPlayer;
+
+    // private IEnumerator pauseCoroutine;
+    private Coroutine pauseCoroutine;
     
     // Start is called before the first frame update
     void Start()
@@ -108,7 +118,13 @@ public class EnemyStates : MonoBehaviour
         {
             case enemyState.patrol:
                 if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance)
-                    StartCoroutine(NextWaypoint());                
+                {
+                    //Check if coroutine empty or running
+                    if(pauseCoroutine == null)
+                    {
+                        pauseCoroutine = StartCoroutine(NextWaypoint());
+                    }
+                }                
                 break;
 
             case enemyState.chase:
@@ -117,10 +133,16 @@ public class EnemyStates : MonoBehaviour
 
             case enemyState.investigate:
                 // print(Vector3.Distance(transform.position, target.position));
-                agent.speed = patrolSpeed;
+                //agent.speed = patrolSpeed;
 
-                if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance)
-                    StartCoroutine(NextWaypoint());
+                if (Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance)
+                {
+                    //Check if coroutine empty or running
+                    if(pauseCoroutine == null)
+                    {
+                        pauseCoroutine = StartCoroutine(NextWaypoint());
+                    }
+                }
                 break;
 
 
@@ -165,13 +187,13 @@ public class EnemyStates : MonoBehaviour
     IEnumerator NextWaypoint()
     {
         state = enemyState.wait;
-        agent.isStopped = true;
+        // agent.isStopped = true;
 
         // StartCoroutine(changeAnimation("Idle"));
 
         yield return new WaitForSecondsRealtime(pauseTime);
 
-        agent.isStopped = false;
+        // agent.isStopped = false;
 
         if (currentTargetIndex == waypointTransforms.Length-1) {
             target = waypointTransforms[0];

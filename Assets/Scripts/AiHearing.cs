@@ -27,7 +27,7 @@ public class AiHearing : MonoBehaviour
 
             hits = Physics.RaycastAll(transform.position, pos - transform.position, distance, soundObstacles);
             Debug.DrawRay(transform.position, pos - transform.position, Color.green, 5f);
-
+            
             if (distance + hits.Length * obstacleSoundDampening < range)
             {
                 aiStates.investigate(pos);
