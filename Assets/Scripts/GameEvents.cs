@@ -62,7 +62,7 @@ public class GameEvents : MonoBehaviour
     }
 
     //Call this with a number of phase you want to activate
-    protected virtual void OnPhaseChanged(int phase)
+    public void OnPhaseChanged(int phase)
     {
         PhaseChanged?.Invoke(phase);
     }
