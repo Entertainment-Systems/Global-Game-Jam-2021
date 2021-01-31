@@ -26,27 +26,26 @@ public class AudioPlayer : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
     }
-    
 
-    public void Play(int i)
+
+    public void Play(int i, float volume = 1f)
     {
         if(clips.Length > 0)
         {
-            _audioSource.clip = clips[i].clip;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(clips[i].clip, volume);
             GameEvents.current.OnNoisePlayed(clips[i].audibleRange, transform.position);
         }
     }
 
-    public void Play()
+    public void Play(float volume = 1f)
     {
         if(clips.Length > 0)
         {
             Random rand = new Random();
             int clip = rand.Next(clips.Length);
             
-            _audioSource.clip = clips[clip].clip;
-            _audioSource.Play();
+            
+            _audioSource.PlayOneShot(clips[clip].clip, volume);
             GameEvents.current.OnNoisePlayed(clips[clip].audibleRange, transform.position);
         }
     }
