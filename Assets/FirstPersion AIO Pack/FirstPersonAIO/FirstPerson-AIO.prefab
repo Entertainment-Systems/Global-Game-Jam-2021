@@ -283,6 +283,12 @@ GameObject:
   - component: {fileID: 1056634442}
   - component: {fileID: 612225893}
   - component: {fileID: 612225892}
+  - component: {fileID: 308849490}
+  - component: {fileID: 308849491}
+  - component: {fileID: 308849492}
+  - component: {fileID: 308849495}
+  - component: {fileID: 308849496}
+  - component: {fileID: 308849498}
   m_Layer: 9
   m_Name: FirstPerson-AIO
   m_TagString: Player
@@ -495,7 +501,7 @@ MonoBehaviour:
   isCrouching: 0
   isSprinting: 0
   fps_Rigidbody: {fileID: 0}
-  useHeadbob: 1
+  useHeadbob: 0
   head: {fileID: 4204582120663750}
   snapHeadjointToCapsul: 0
   headbobFrequency: 10
@@ -641,3 +647,98 @@ MonoBehaviour:
     audibleRange: 4
   - clip: {fileID: 8300000, guid: 0f6df0416cb70b546a522d1bbfb35c69, type: 3}
     audibleRange: 4
+--- !u!114 &308849490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743903104223250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e09e57c5016f7408847616f1aecdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enables:
+  - {fileID: 0}
+  Disables: []
+  trigger: {fileID: 0}
+  destroySelf: 0
+--- !u!114 &308849491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743903104223250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e09e57c5016f7408847616f1aecdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enables:
+  - {fileID: 0}
+  Disables: []
+  trigger: {fileID: 0}
+  destroySelf: 0
+--- !u!114 &308849492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743903104223250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e09e57c5016f7408847616f1aecdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enables:
+  - {fileID: 0}
+  Disables:
+  - {fileID: 0}
+  trigger: {fileID: 0}
+  destroySelf: 0
+--- !u!114 &308849495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743903104223250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510e3e48128831946beafc7a529e0c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  phaseGroups: []
+  changeDecayStep: 0.01
+  changeSpeed: 20
+  PlayerLives: 0
+--- !u!114 &308849496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743903104223250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec8e7542aaff1c46a62d585bd9b00b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &308849498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743903104223250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1208163c0ace548b881a19d1897c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportPoint: {fileID: 0}
+  teleportTime: 0.8
