@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4360198935668434}
   - component: {fileID: 33488809000586474}
-  - component: {fileID: 64177837041030950}
   - component: {fileID: 23840420411126572}
   m_Layer: 0
   m_Name: BrickDecal01
@@ -40,20 +39,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255677660716098}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64177837041030950
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1255677660716098}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &23840420411126572
 MeshRenderer:
