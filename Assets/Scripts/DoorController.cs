@@ -6,23 +6,30 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     public int id;
-    
+
+    private Animator animator;
+    string doorCloseAnim = "DoorClose";
+    string doorOpenAnim = "DoorOpen";
+
     // Start is called before the first frame update
     void Start()
     {
-        GameEvents.current.DoorwayTriggerEnter += DoorwayOpen;
-        GameEvents.current.DoorwayTriggerExit += DoorwayClose;
+        animator = GetComponent<Animator>();
+        GameEvents.current.DoorwayTriggerEnter += OnDoorwayOpen;
+        GameEvents.current.DoorwayTriggerExit += OnDoorwayClose;
     }
 
-    private void DoorwayClose(int id)
+    private void OnDoorwayClose(int id)
     {
         if (id == this.id)
-            transform.Translate(Vector3.up * -10);
+            animator.Play(doorCloseAnim);
+            //transform.Translate(Vector3.up * -10);
     }
 
-    private void DoorwayOpen(int id)
+    private void OnDoorwayOpen(int id)
     {
         if (id == this.id)
-            transform.Translate(Vector3.up * 10);
+            animator.Play(doorOpenAnim);
+        //transform.Translate(Vector3.up * 10);
     }
 }
