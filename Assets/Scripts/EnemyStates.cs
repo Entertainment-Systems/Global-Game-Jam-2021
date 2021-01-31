@@ -14,11 +14,23 @@ public class EnemyStates : MonoBehaviour
         get => _state;
         set
         {
+            //Check if coroutine empty or running
+            if(pauseCoroutine != null)
+            {
+                StopCoroutine(pauseCoroutine);
+                pauseCoroutine = null;
+            }
+            // Debug.Log(name + " going to " + value);
             _state = value;
             switch (value)
             {
                 case enemyState.chase:
                     agent.speed = chaseSpeed;
+                    if(screechTimer <= 0)
+                    {
+                        _audioPlayer.Play();
+                        screechTimer = 30f;
+                    }
                     break;
                 case enemyState.wait:
                     agent.speed = 0;
@@ -40,6 +52,9 @@ public class EnemyStates : MonoBehaviour
     [Header("Targets")]
     [SerializeField] GameObject waypointsParent;
     [SerializeField] float pauseTime = 1;
+    [SerializeField] float screechCooldown = 30f;
+
+    private float screechTimer = 0;
 
     GameObject Player;
 
@@ -49,6 +64,10 @@ public class EnemyStates : MonoBehaviour
 
     Animator anim;
     NavMeshAgent agent;
+    private AudioPlayer _audioPlayer;
+
+    // private IEnumerator pauseCoroutine;
+    private Coroutine pauseCoroutine;
     
     // Start is called before the first frame update
     void Start()
@@ -56,6 +75,7 @@ public class EnemyStates : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        _audioPlayer = GetComponent<AudioPlayer>();
 
         GameEvents.current.PlayerKilled += OnPlayerKilled;
 
@@ -75,6 +95,8 @@ public class EnemyStates : MonoBehaviour
             // StartCoroutine(changeAnimation("Walk"));
         }
         else print("Error: no waypoints set for AI");
+
+        state = enemyState.patrol;
     }
 
     private void OnPlayerKilled(int id)
@@ -88,12 +110,21 @@ public class EnemyStates : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (screechTimer > 0)
+            screechTimer -= Time.deltaTime;
+        
         anim.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
         switch (state)
         {
             case enemyState.patrol:
                 if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance)
-                    StartCoroutine(NextWaypoint());                
+                {
+                    //Check if coroutine empty or running
+                    if(pauseCoroutine == null)
+                    {
+                        pauseCoroutine = StartCoroutine(NextWaypoint());
+                    }
+                }                
                 break;
 
             case enemyState.chase:
@@ -102,10 +133,16 @@ public class EnemyStates : MonoBehaviour
 
             case enemyState.investigate:
                 // print(Vector3.Distance(transform.position, target.position));
-                agent.speed = patrolSpeed;
+                //agent.speed = patrolSpeed;
 
-                if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance)
-                    StartCoroutine(NextWaypoint());
+                if (Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance)
+                {
+                    //Check if coroutine empty or running
+                    if(pauseCoroutine == null)
+                    {
+                        pauseCoroutine = StartCoroutine(NextWaypoint());
+                    }
+                }
                 break;
 
 
@@ -150,13 +187,13 @@ public class EnemyStates : MonoBehaviour
     IEnumerator NextWaypoint()
     {
         state = enemyState.wait;
-        agent.isStopped = true;
+        // agent.isStopped = true;
 
         // StartCoroutine(changeAnimation("Idle"));
 
         yield return new WaitForSecondsRealtime(pauseTime);
 
-        agent.isStopped = false;
+        // agent.isStopped = false;
 
         if (currentTargetIndex == waypointTransforms.Length-1) {
             target = waypointTransforms[0];

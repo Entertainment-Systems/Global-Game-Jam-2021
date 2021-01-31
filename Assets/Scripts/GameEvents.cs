@@ -20,6 +20,8 @@ public class GameEvents : MonoBehaviour
     public event Action<int> PlayerKilled;
     public event Action<int> PlayerLostLife;
     public event Action<int> PlayerAttacked;
+    //Sub to this to see which phase was just activate then activate whatever stuff you want to swap
+    public event Action<int> PhaseChanged;
 
     //CALLS
     public void OnDoorwayTriggerEnter(int id)
@@ -57,5 +59,11 @@ public class GameEvents : MonoBehaviour
     public void OnPlayerAttacked(int obj)
     {
         PlayerAttacked?.Invoke(obj);
+    }
+
+    //Call this with a number of phase you want to activate
+    public void OnPhaseChanged(int phase)
+    {
+        PhaseChanged?.Invoke(phase);
     }
 }
