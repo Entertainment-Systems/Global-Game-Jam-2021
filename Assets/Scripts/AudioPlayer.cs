@@ -29,17 +29,17 @@ public class AudioPlayer : MonoBehaviour
     }
 
 
-    public void Play(int i, float volume = 1f, float pitch = 1f)
+    public void Play(int i, float volume = 1f, float pitch = 1f, float rangeMulti = 1f)
     {
-        if(clips.Length > 0)
+        if(clips.Length > 0 && i < clips.Length)
         {
             _audioSource.pitch = pitch;
             _audioSource.PlayOneShot(clips[i].clip, volume);
-            GameEvents.current.OnNoisePlayed(clips[i].audibleRange, transform.position);
+            GameEvents.current.OnNoisePlayed(clips[i].audibleRange * rangeMulti, transform.position);
         }
     }
 
-    public void Play(float volume = 1f, float pitch = 1f)
+    public void Play(float volume = 1f, float pitch = 1f, float rangeMulti = 1f)
     {
         if(clips.Length > 0)
         {
@@ -48,7 +48,7 @@ public class AudioPlayer : MonoBehaviour
 
             _audioSource.pitch = pitch;
             _audioSource.PlayOneShot(clips[clip].clip, volume);
-            GameEvents.current.OnNoisePlayed(clips[clip].audibleRange, transform.position);
+            GameEvents.current.OnNoisePlayed(clips[clip].audibleRange * rangeMulti, transform.position);
         }
     }
 }

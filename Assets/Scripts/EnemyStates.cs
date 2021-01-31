@@ -30,8 +30,8 @@ public class EnemyStates : MonoBehaviour
                     agent.speed = chaseSpeed;
                     if(screechTimer <= 0)
                     {
-                        //Play screech
-                        _audioPlayer.Play(0);
+                        //Play screech (first 13 are steps)
+                        _audioPlayer.Play(14);
                         screechTimer = 30f;
                     }
                     break;

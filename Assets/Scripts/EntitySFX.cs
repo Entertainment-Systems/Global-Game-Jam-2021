@@ -37,10 +37,10 @@ public class EntitySFX : MonoBehaviour
                 nextAudioTime = Random.Range(minFrequency, maxFrequency);
 
                 //Choose random non screech
-                int clip = Random.Range(1, 3);
+                int clip = Random.Range(15, 17);
                 float pitch = Random.Range(.9f, 1.1f);
                 float vol = Random.Range(.9f, 1.1f);
-                _audioPlayer.Play(vol, pitch);
+                _audioPlayer.Play(clip, vol, pitch);
             }
         }
     }

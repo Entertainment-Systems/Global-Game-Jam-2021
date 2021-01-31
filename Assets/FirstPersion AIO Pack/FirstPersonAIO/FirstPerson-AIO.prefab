@@ -43,8 +43,9 @@ GameObject:
   - component: {fileID: 20724644957976244}
   - component: {fileID: 81419976148993170}
   - component: {fileID: 124044488792268592}
-  - component: {fileID: 1140846909}
   - component: {fileID: 1140846912}
+  - component: {fileID: 1147297365}
+  - component: {fileID: 1147297366}
   m_Layer: 9
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -75,8 +76,8 @@ Camera:
   m_GameObject: {fileID: 1264833946912854}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.066037714, g: 0.019998526, b: 0, a: 0.019607844}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.066037714, g: 0.019998526, b: 0, a: 0.5882353}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -91,7 +92,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -125,7 +126,67 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264833946912854}
   m_Enabled: 1
---- !u!114 &1140846909
+--- !u!114 &1140846912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264833946912854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 4288335847994348}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
+--- !u!114 &1147297365
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +207,7 @@ MonoBehaviour:
   pickUpKey: 324
   throwItemKey: 323
   dropKey: 101
---- !u!114 &1140846912
+--- !u!114 &1147297366
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,6 +281,8 @@ GameObject:
   - component: {fileID: 136239539305442568}
   - component: {fileID: 114051214696948948}
   - component: {fileID: 1056634442}
+  - component: {fileID: 612225893}
+  - component: {fileID: 612225892}
   m_Layer: 9
   m_Name: FirstPerson-AIO
   m_TagString: Player
@@ -386,10 +449,10 @@ MonoBehaviour:
   mouseInputInversion: 0
   cameraInputMethod: 0
   verticalRotationRange: 170
-  mouseSensitivity: 2.68
+  mouseSensitivity: 1
   fOVToMouseSensitivity: 1
   cameraSmoothing: 5
-  lockAndHideCursor: 0
+  lockAndHideCursor: 1
   playerCamera: {fileID: 20724644957976244}
   enableCameraShake: 1
   autoCrosshair: 0
@@ -430,12 +493,13 @@ MonoBehaviour:
     changeTime: 0.75
     fovRef: 0
   isCrouching: 0
+  isSprinting: 0
   fps_Rigidbody: {fileID: 0}
   useHeadbob: 1
   head: {fileID: 4204582120663750}
   snapHeadjointToCapsul: 0
-  headbobFrequency: 1
-  headbobSwayAngle: 2.5
+  headbobFrequency: 10
+  headbobSwayAngle: 0
   headbobHeight: 0
   headbobSideMovement: 0
   jumpLandIntensity: 3
@@ -518,3 +582,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highMod: 45
+--- !u!114 &612225893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743903104223250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831a2bf264d1e8747ad70bc4a00b991d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  stepFrequency: 0.5
+  stepClips: 7
+--- !u!114 &612225892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743903104223250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65944bbd9f2453143aa6b4917da95ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleSoundDampening: 2
+  clips:
+  - clip: {fileID: 8300000, guid: 01efcd76e03e7bd44b7770fabc935fc1, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: 2cb32413c5c3ad54b8223b93e823b4d0, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: f65beb5f39664684ab6803b8970395f4, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: 153e024ee9edba34b8f825c7ef2826ff, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: c2636b906be45d24aa18acc902a4423f, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: 7eae5e83cfce5794e8237f492f6f2d7b, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: 47b1a9d9411a7074897f67d99ce6fddb, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: 886fa7787dcff1047928df5b4e46dce0, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: 0ad09f06b8ea76146ac86487b5fb2f83, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: b678d450e15f3d34ba54ad4587c708be, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: 4e22ea66d7380d240af75630aa271d64, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: a77fd6c1ac99e0345b00b8f5f5388990, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: e51700dad715da94a8934827f3d6c45b, type: 3}
+    audibleRange: 4
+  - clip: {fileID: 8300000, guid: 0f6df0416cb70b546a522d1bbfb35c69, type: 3}
+    audibleRange: 4
