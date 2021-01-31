@@ -3,7 +3,12 @@ guid: 6e85f401c5ac9ad4ca61b8dca356e200
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - knock: {instanceID: 0}
+  - thereYouAre: {fileID: 8300000, guid: dfedf55f3438ec94980f71ef6bd4b085, type: 3}
+  - door: {instanceID: 0}
+  - canvas: {instanceID: 0}
+  - man: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
