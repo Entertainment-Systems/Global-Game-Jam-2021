@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameEvents : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GameEvents : MonoBehaviour
     public event Action<int> PlayerAttacked;
     //Sub to this to see which phase was just activate then activate whatever stuff you want to swap
     public event Action<int> PhaseChanged;
+    public event Action GameOver;
 
     //CALLS
     public void OnDoorwayTriggerEnter(int id)
@@ -65,5 +67,11 @@ public class GameEvents : MonoBehaviour
     public void OnPhaseChanged(int phase)
     {
         PhaseChanged?.Invoke(phase);
+    }
+
+    public void OnGameOver()
+    {
+        GameOver?.Invoke();
+        SceneManager.LoadScene("_Menu");
     }
 }

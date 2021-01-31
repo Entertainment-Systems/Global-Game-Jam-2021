@@ -81,7 +81,8 @@ public class PostProccessingController : MonoBehaviour
             lensDistortion.scale.value -= 0.05f;
             yield return new WaitForSeconds(waitTime);
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameEvents.current.OnGameOver();
     }
 
     private void extraEffect(int phase)
