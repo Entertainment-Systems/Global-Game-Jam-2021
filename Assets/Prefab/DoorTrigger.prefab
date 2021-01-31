@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8449740503801560577}
   - component: {fileID: 8449740503801560579}
   - component: {fileID: 8449740503801560576}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4086,6 +4086,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861856852687435729, guid: 2d99be14c9d9c7e4a847f824d6ea095d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4861856852687435733, guid: 2d99be14c9d9c7e4a847f824d6ea095d,
         type: 3}

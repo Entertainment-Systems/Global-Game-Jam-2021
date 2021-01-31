@@ -49,6 +49,10 @@ public class PickUpItem : MonoBehaviour
                     {
                         selected.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                         selected.gameObject.GetComponent<MeshCollider>().enabled = false;
+                        if(selected.name.Contains("Card"))
+                        {
+                            selected.gameObject.GetComponent<CardTower>().collapseCards();
+                        }
                     }
                 }
             }
