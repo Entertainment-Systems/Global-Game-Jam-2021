@@ -22,6 +22,7 @@ public class PostProccessingController : MonoBehaviour
     {
         GameEvents.current.PlayerLostLife += lifeLost;
         GameEvents.current.PlayerKilled += noLifes;
+        GameEvents.current.PhaseChanged += extraEffect;
 
         m_PostProcessVolume = gameObject.GetComponent<PostProcessVolume>();
         m_PostProcessVolume.profile.TryGetSettings(out lensDistortion);
@@ -81,6 +82,11 @@ public class PostProccessingController : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void extraEffect(int phase)
+    {
+        colorGrade = colorGrade + 5f;
     }
 
 }
