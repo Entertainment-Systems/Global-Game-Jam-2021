@@ -8,7 +8,9 @@ using UnityEngine.AI;
 public class EnemyStates : MonoBehaviour
 {
 
-    [Header("States")] private enemyState _state;
+    [Header("States")] 
+    private enemyState _state;
+
     public enemyState state
     {
         get => _state;
@@ -28,7 +30,8 @@ public class EnemyStates : MonoBehaviour
                     agent.speed = chaseSpeed;
                     if(screechTimer <= 0)
                     {
-                        _audioPlayer.Play();
+                        //Play screech (first 13 are steps)
+                        _audioPlayer.Play(14);
                         screechTimer = 30f;
                     }
                     break;

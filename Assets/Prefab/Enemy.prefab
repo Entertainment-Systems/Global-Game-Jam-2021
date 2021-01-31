@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: 4718421453817614978}
   - component: {fileID: 482468385}
   - component: {fileID: 482468384}
+  - component: {fileID: 7725197215264248287}
+  - component: {fileID: 1131950228880312594}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -150,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36984946091de3f4cb6d2c68452d0ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRange: 15
+  visionRange: 10
   visionCone: 90
   collisionMask:
     serializedVersion: 2
@@ -265,8 +267,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleSoundDampening: 2
   clips:
-  - clip: {fileID: 8300000, guid: 40f4e894c89fe9340bcad2f8e1173c00, type: 3}
+  - clip: {fileID: 8300000, guid: 01efcd76e03e7bd44b7770fabc935fc1, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 2cb32413c5c3ad54b8223b93e823b4d0, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: f65beb5f39664684ab6803b8970395f4, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 153e024ee9edba34b8f825c7ef2826ff, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: c2636b906be45d24aa18acc902a4423f, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 7eae5e83cfce5794e8237f492f6f2d7b, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 47b1a9d9411a7074897f67d99ce6fddb, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 886fa7787dcff1047928df5b4e46dce0, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 0ad09f06b8ea76146ac86487b5fb2f83, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: b678d450e15f3d34ba54ad4587c708be, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 4e22ea66d7380d240af75630aa271d64, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: a77fd6c1ac99e0345b00b8f5f5388990, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: e51700dad715da94a8934827f3d6c45b, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 0f6df0416cb70b546a522d1bbfb35c69, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: abcd07ad9bf58fe4fb88b8800dfee556, type: 3}
     audibleRange: 10
+  - clip: {fileID: 8300000, guid: da011ad765a2b0746a09fa274d626313, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 6e8634612471ec04da35b380ddbbeaa0, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: a903f1840a6f8e041a831f61d166f098, type: 3}
+    audibleRange: 0
+--- !u!114 &7725197215264248287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833630848027092070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8510d4682c405e34abd5a8254745ab70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFrequency: 5
+  minFrequency: 15
+--- !u!114 &1131950228880312594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833630848027092070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831a2bf264d1e8747ad70bc4a00b991d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  stepFrequency: 0.5
+  stepClips: 7
 --- !u!95 &4833630848993564309
 Animator:
   serializedVersion: 3
