@@ -51,11 +51,4 @@ public class AudioPlayer : MonoBehaviour
             GameEvents.current.OnNoisePlayed(clips[clip].audibleRange, transform.position);
         }
     }
-
-    
-
-    private void OnCollisionEnter(Collision other)
-    {
-        GameEvents.current.OnNoisePlayed(20f, transform.position);
-    }
 }
