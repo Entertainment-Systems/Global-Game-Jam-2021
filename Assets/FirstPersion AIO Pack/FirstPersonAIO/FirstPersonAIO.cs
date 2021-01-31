@@ -171,7 +171,7 @@ public class FirstPersonAIO : MonoBehaviour {
     public bool isCrouching;
     float yVelocity;
     float checkedSlope;
-    bool isSprinting = false;
+    public bool isSprinting = false;
 
     public Rigidbody fps_Rigidbody;
 
