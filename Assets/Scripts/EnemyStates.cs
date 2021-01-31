@@ -19,6 +19,11 @@ public class EnemyStates : MonoBehaviour
             {
                 case enemyState.chase:
                     agent.speed = chaseSpeed;
+                    if(screechTimer <= 0)
+                    {
+                        _audioPlayer.Play();
+                        screechTimer = 30f;
+                    }
                     break;
                 case enemyState.wait:
                     agent.speed = 0;
@@ -40,6 +45,9 @@ public class EnemyStates : MonoBehaviour
     [Header("Targets")]
     [SerializeField] GameObject waypointsParent;
     [SerializeField] float pauseTime = 1;
+    [SerializeField] float screechCooldown = 30f;
+
+    private float screechTimer = 0;
 
     GameObject Player;
 
@@ -49,6 +57,7 @@ public class EnemyStates : MonoBehaviour
 
     Animator anim;
     NavMeshAgent agent;
+    private AudioPlayer _audioPlayer;
     
     // Start is called before the first frame update
     void Start()
@@ -56,6 +65,7 @@ public class EnemyStates : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        _audioPlayer = GetComponent<AudioPlayer>();
 
         GameEvents.current.PlayerKilled += OnPlayerKilled;
 
@@ -75,6 +85,8 @@ public class EnemyStates : MonoBehaviour
             // StartCoroutine(changeAnimation("Walk"));
         }
         else print("Error: no waypoints set for AI");
+
+        state = enemyState.patrol;
     }
 
     private void OnPlayerKilled(int id)
@@ -88,6 +100,9 @@ public class EnemyStates : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (screechTimer > 0)
+            screechTimer -= Time.deltaTime;
+        
         anim.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
         switch (state)
         {
