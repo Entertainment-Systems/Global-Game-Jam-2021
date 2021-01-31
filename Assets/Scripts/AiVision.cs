@@ -37,8 +37,11 @@ public class AiVision : MonoBehaviour
                 RaycastHit hit;
                 if (!Physics.Raycast(eyes.position, target - eyes.position, out hit, visionRange, collisionMask))
                 {
-                    Debug.DrawRay(eyes.position, target - eyes.position, Color.red);
-                    _lastSightingPos = _player.position;
+                    if(Vector3.Distance(transform.position, _player.position) < visionRange)
+                    {
+                        Debug.DrawRay(eyes.position, target - eyes.position, Color.red);
+                        _lastSightingPos = _player.position;
+                    }
                 }
 
                 if (_lastSightingPos == _player.position)
