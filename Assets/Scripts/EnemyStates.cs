@@ -134,7 +134,7 @@ public class EnemyStates : MonoBehaviour
 
             case enemyState.investigate:
                 // print(Vector3.Distance(transform.position, target.position));
-                agent.speed = patrolSpeed;
+                //agent.speed = patrolSpeed;
 
                 if (Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance)
                 {
