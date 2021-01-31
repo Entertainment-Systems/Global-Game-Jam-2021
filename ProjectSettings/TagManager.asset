@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - pickUp
+  - concrete
+  - wood
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Enemy
   - Walls
   - Corpse
-  - 
+  - Ground
   - 
   - 
   - 
