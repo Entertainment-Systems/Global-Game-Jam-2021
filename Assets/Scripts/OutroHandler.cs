@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class OutroHandler : MonoBehaviour
 {
-    [SerializeField] AudioClip knock;
+    [SerializeField] AudioClip knock, thereYouAre;
     [SerializeField] Animator door;
     [SerializeField] Animator canvas;
     [SerializeField] GameObject man;
     AudioSource src, jakob;
+    
 
     // Start is called before the first frame update
     void OnEnable()
@@ -34,6 +35,7 @@ public class OutroHandler : MonoBehaviour
 
         door.Play("DoorOpen");
         man.SetActive(true);
+        src.PlayOneShot(thereYouAre);
 
         yield return new WaitForSecondsRealtime(2);
         canvas.Play("Outro");
