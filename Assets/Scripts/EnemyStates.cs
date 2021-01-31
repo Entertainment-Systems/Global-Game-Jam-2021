@@ -8,7 +8,9 @@ using UnityEngine.AI;
 public class EnemyStates : MonoBehaviour
 {
 
-    [Header("States")] private enemyState _state;
+    [Header("States")] 
+    private enemyState _state;
+
     public enemyState state
     {
         get => _state;
