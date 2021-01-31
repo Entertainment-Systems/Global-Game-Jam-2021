@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 4718421453817614978}
   - component: {fileID: 482468385}
   - component: {fileID: 482468384}
+  - component: {fileID: 7725197215264248287}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -267,6 +268,26 @@ MonoBehaviour:
   clips:
   - clip: {fileID: 8300000, guid: 40f4e894c89fe9340bcad2f8e1173c00, type: 3}
     audibleRange: 10
+  - clip: {fileID: 8300000, guid: da011ad765a2b0746a09fa274d626313, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: 6e8634612471ec04da35b380ddbbeaa0, type: 3}
+    audibleRange: 0
+  - clip: {fileID: 8300000, guid: a903f1840a6f8e041a831f61d166f098, type: 3}
+    audibleRange: 0
+--- !u!114 &7725197215264248287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833630848027092070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8510d4682c405e34abd5a8254745ab70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFrequency: 5
+  minFrequency: 15
 --- !u!95 &4833630848993564309
 Animator:
   serializedVersion: 3
