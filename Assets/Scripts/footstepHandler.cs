@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class footstepHandler : MonoBehaviour
 {
+    [SerializeField] AudioSource indoorSource;
+    [SerializeField] AudioSource outdoorSource;
     [SerializeField] LayerMask groundLayer;
     AudioPlayer audio;
     bool isPlayer, moving;
@@ -48,20 +50,44 @@ public class footstepHandler : MonoBehaviour
         RaycastHit hit;
         Physics.Raycast(transform.position, Vector3.down, out hit, groundLayer);
 
-        print(controllerRB.velocity.magnitude);
-
         switch (hit.collider.tag)
         {
             case "concrete":
-                
+                if (moving)
+                {
+                    outdoorSource.volume = 1;
+                    indoorSource.volume = 0;
+                }
+                else
+                {
+                    outdoorSource.volume = 0;
+                    indoorSource.volume = 0;
+                }
                     break;
 
             case "wood":
-                
+                if(moving){
+                    outdoorSource.volume = 0;
+                    indoorSource.volume = 1;
+                }
+                else
+                {
+                    outdoorSource.volume = 0;
+                    indoorSource.volume = 0;
+                }
                 break;
 
             default:
-                
+                if (moving)
+                {
+                    outdoorSource.volume = 0;
+                    indoorSource.volume = 1;
+                }
+                else
+                {
+                    outdoorSource.volume = 0;
+                    indoorSource.volume = 0;
+                }
                 break;
         }
 
