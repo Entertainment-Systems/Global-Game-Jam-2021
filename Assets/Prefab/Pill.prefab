@@ -3378,3 +3378,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pillValue: 0.2
+  pickupSound: {fileID: 8300000, guid: 8c88cc03eac3a7d4c94550a5399ab419, type: 3}
