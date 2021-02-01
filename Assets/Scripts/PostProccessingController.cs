@@ -11,7 +11,7 @@ public class PostProccessingController : MonoBehaviour
     [Header("Time before Respond")]
     [SerializeField] public float respondTime = 1f;
 
-    float colorGrade = 60f;
+    float multiplier = 60f;
     float high;
     ColorGrading colorGrading = null;
     LensDistortion lensDistortion = null;
@@ -35,11 +35,11 @@ public class PostProccessingController : MonoBehaviour
     {
         high = GameStates.current.High;
 
-        colorGrading.temperature.value = high * colorGrade;
-        colorGrading.tint.value = high * colorGrade;
+        colorGrading.temperature.value = high * multiplier;
+        colorGrading.tint.value = high * multiplier;
         colorGrading.hueShift.value += .1f* high;
 
-        lensDistortion.intensity.value = 1 + (high * colorGrade);
+        lensDistortion.intensity.value = 1 + (high * multiplier);
         chromaticAberration.intensity.value = high;
     }
 
@@ -81,13 +81,24 @@ public class PostProccessingController : MonoBehaviour
             lensDistortion.scale.value -= 0.05f;
             yield return new WaitForSeconds(waitTime);
         }
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameEvents.current.OnGameOver();
     }
 
     private void extraEffect(int phase)
     {
-        colorGrade = colorGrade + 5f;
+        if(phase == 1)
+        {
+            multiplier = 65;
+        }
+        else if(phase == 2)
+        {
+            multiplier = 70;
+        }
+        else if(phase == 3)
+        {
+            multiplier = 75;
+
+        }
     }
 
 }

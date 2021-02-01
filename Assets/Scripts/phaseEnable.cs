@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class phaseEnable : MonoBehaviour
 {
-    [SerializeField] private GameObject Objects;
+    [SerializeField] private GameObject AppearingObjects;
+    [SerializeField] private GameObject DisappearingObjects;
+
     public int phase;
 
     void Start()
     {
-        Objects.SetActive(false);
+        AppearingObjects.SetActive(false);
+        DisappearingObjects.SetActive(true);
         GameEvents.current.PhaseChanged += ObjectsEnable;
     }
 
     void ObjectsEnable(int phase)
     {
         if (phase == this.phase)
-            Objects.SetActive(true);
-
+        {
+            AppearingObjects.SetActive(true);
+            DisappearingObjects.SetActive(false);
+        }
     }
 }
