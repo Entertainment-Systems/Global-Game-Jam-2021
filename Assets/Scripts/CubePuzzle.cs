@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class CubePuzzle : MonoBehaviour
 {
-
     [SerializeField]
-    string currentMat, targetMat;
+    PuzzleSide currentMat;
+    [SerializeField]
+    PuzzleSide[] targetMat;
     private Renderer currRenderer;
-    private void Start()
+
+    private IEnumerator Start()
     {
+        yield return new WaitForEndOfFrame();
         currRenderer = GetComponent<Renderer>();
         CubePuzzleController ctrl = GetComponentInParent<CubePuzzleController>();
         currRenderer.material.color = ctrl.getColor(currentMat);
@@ -20,9 +23,11 @@ public class CubePuzzle : MonoBehaviour
         if(other.tag=="Player")
         {
             CubePuzzleController ctrl = GetComponentInParent<CubePuzzleController>();
-            string nextMat = ctrl.NextMaterial(currentMat);
-            if (currentMat == targetMat) ctrl.remove();
-            else if (nextMat == targetMat) ctrl.add();
+            PuzzleSide nextMat = ctrl.NextMaterial(currentMat);
+            for (int i = 0; i < targetMat.Length; i++) {
+                if (currentMat == targetMat[i]) ctrl.remove(i);
+                else if (nextMat == targetMat[i]) ctrl.add(i);
+            }
             currRenderer.material.color = ctrl.getColor(nextMat);
             currentMat = nextMat;
         }
