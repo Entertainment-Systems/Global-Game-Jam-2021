@@ -8,11 +8,17 @@ public class TriggerArea : MonoBehaviour
     public int id;
     private void OnTriggerEnter(Collider other)
     {
-        GameEvents.current.OnDoorwayTriggerEnter(id);
+        if(other.tag == "Player" || other.tag == "Enemy")
+        {
+            GameEvents.current.OnDoorwayTriggerEnter(id);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        GameEvents.current.OnDoorwayTriggerExit(id);
+        if (other.tag == "Player" || other.tag == "Enemy")
+        {
+            GameEvents.current.OnDoorwayTriggerExit(id);
+        }
     }
 }
