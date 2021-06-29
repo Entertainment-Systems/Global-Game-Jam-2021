@@ -1,7 +1,5 @@
 ## About
 Coming Down is a game made in 48 hours as a submission to the [Global Game Jam 2021](https://globalgamejam.org/2021/games).
-
-This is a jam dedicated to honouring the art style and input limitations of the Nokia 3310.
 <p align="center">
   <img width="230" height="150" src="https://ggj.s3.amazonaws.com/styles/game_content__normal/games/screenshots/2021/01/245691/image_2021-01-31_164518.png?itok=9VZXGOfw&timestamp=1612111663">
   <img width="230" height="150" src="https://ggj.s3.amazonaws.com/styles/game_content__normal/games/screenshots/2021/01/245691/image_2021-01-31_164655.png?itok=DM3qjNUH&timestamp=1612111663">
