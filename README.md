@@ -28,5 +28,6 @@ Download and extract the .zip file found on the itch.io page below.
 - [Pokora](https://github.com/Pokora22)
 - [Evan McConnell](https://github.com/EvanMcConnell)
 - Jake Fletcher
+- Kasper Gutek
 
 Copyright (C) 2021
